@@ -73,7 +73,7 @@ FROM lab1.customers c
          JOIN lab1.orders o ON c.id = o.customer_id
          JOIN lab1.order_items oi ON o.id = oi.order_id
          JOIN lab1.books b ON b.isbn = oi.isbn
-WHERE c.city = 'рузаевка';
+WHERE c.city = '%рузаевка%';
 
 -- 15.	вывести фио первого заказчика:
 SELECT name
@@ -83,11 +83,11 @@ WHERE id = (SELECT o.customer_id
                 WHERE date = (SELECT min(date) FROM lab1.orders));
 
 --16.	Вывести ФИО клиента, заказавшего наибольшее количество одной и той же книги:
-SELECT lab1.customers.name, lab1.books.title, lab1.order_items.quantity FROM lab1.order_items
-        JOIN lab1.books ON lab1.order_items.isbn = lab1.books.isbn
-        JOIN lab1.orders ON lab1.order_items.order_id = lab1.orders.id
-        JOIN lab1.customers ON lab1.orders.customer_id = lab1.customers.id
-WHERE lab1.order_items.quantity = (SELECT MAX(quantity) FROM lab1.order_items);
+SELECT t4.name, t2.title, t1.quantity FROM lab1.order_items t1
+        JOIN lab1.books t2 ON t1.isbn = t2.isbn
+        JOIN lab1.orders t3 ON t1.order_id = t3.id
+        JOIN lab1.customers t4 ON t3.customer_id = t4.id
+WHERE t1.quantity = (SELECT MAX(quantity) FROM lab1.order_items);
 
 
 
