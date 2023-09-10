@@ -73,7 +73,7 @@ FROM lab1.customers c
          JOIN lab1.orders o ON c.id = o.customer_id
          JOIN lab1.order_items oi ON o.id = oi.order_id
          JOIN lab1.books b ON b.isbn = oi.isbn
-WHERE c.city = '%рузаевка%';
+WHERE c.city = 'Рузаевка';
 
 -- 15.	вывести фио первого заказчика:
 SELECT name
