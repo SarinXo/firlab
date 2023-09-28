@@ -54,7 +54,7 @@ ORDER BY city;
 SELECT customer_id, COUNT(DISTINCT id) FROM lab1.orders GROUP BY customer_id;
 
 -- 12.	вывести количество заказанных книг по каждому isbn:
-SELECT isbn, SUM(DISTINCT quantity)
+SELECT isbn, SUM(quantity)
 FROM lab1.order_items
 GROUP BY isbn;
 
