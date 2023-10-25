@@ -10,7 +10,7 @@ SELECT orders.date, orders.amount
         AND orders.date <= '2006-09-20';
 
 -- 2  Удалить книгу, которая продается меньше всего (по кол-ву продаваемых экземпляров)
-DELETE FROM lab1.books WHERE isbn = (
+SELECT * FROM lab1.books WHERE isbn = (
  SELECT s.isbn
     FROM(
         SELECT isbn, SUM(quantity) AS q
@@ -26,6 +26,16 @@ DELETE FROM lab1.books WHERE isbn = (
         ) AS i
      )
 );
+
+SELECT orders.*, sub_total.s AS sub_total
+FROM lab1.orders orders
+         JOIN (
+    SELECT oi.order_id, SUM(oi.quantity * b.price) s
+    FROM lab1.order_items oi
+             JOIN lab1.books b ON b.isbn = oi.isbn
+    GROUP BY oi.order_id
+) sub_total ON sub_total.order_id = orders.id
+WHERE orders.amount != sub_total.s;
 
 -- Задание 3. Определить правильность суммы заказа, если неверно, то вывести заказ.
 SELECT * FROM lab1.orders orders
